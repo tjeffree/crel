@@ -49,13 +49,11 @@ window.crel = (function(undefined){
     function crel(){
         var document = window.document,
             args = arguments, //Note: assigned to a variable to assist compilers. Saves about 40k in closure compiler. Has negligable effect on performance.
-            element,
+            element = element = typeof args[0] === 'string' ? document.createElement(args[0]) : args[0],
             settings = args[1],
             childIndex = 2,
             argumentsLength = args.length,
             attributeMap = crel.attrMap;
-
-        element = (isNode(args[0]) ? args[0] : document.createElement(args[0]));
 
         // shortcut
         if(argumentsLength === 1){
@@ -77,7 +75,7 @@ window.crel = (function(undefined){
                 if(child == null){
                     continue;
                 }
-                
+
                 if(!isNode(child)){
                     child = document.createTextNode(child);
                 }
